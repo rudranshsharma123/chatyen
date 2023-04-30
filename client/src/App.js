@@ -3,6 +3,7 @@ import { getWeb3 } from "./utils/truflle";
 import Web3 from "web3";
 import Chatyen from "./contracts/Chatayen.json";
 import Album from "./components/Album";
+
 function App() {
   const [web3, setWeb3] = useState(null);
   const [account, setAccount] = useState("");
@@ -105,6 +106,7 @@ function App() {
         Call My Function
       </button>
       <Album />
+      {/* <PopUpModal /> */}
     </div>
   );
 }

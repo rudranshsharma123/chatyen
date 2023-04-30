@@ -15,6 +15,13 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Avatar from '@mui/material/Avatar';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import PageviewRounded from '@mui/icons-material/PageviewRounded';
 
 import Web3 from "web3";
 import Chatyen from "../contracts/Chatayen.json";
@@ -41,6 +48,10 @@ export default function Album() {
     const [account, setAccount] = useState("");
     const [contract, setContract] = useState(null);
     const [cards, setCards] = useState([]);
+    const [projectName, setProjectName] = useState("");
+    const [description, setDesciption] = useState("");
+    const [buyPrice, setBuyPrice] = useState(0);
+    const [link, setLink] = useState("");
     const loadBlockchainData = async () => {
         const web3 = window.web3;
         // Load account
@@ -101,14 +112,14 @@ export default function Album() {
     };
     const buyChatBot = async (chatBotID) => {
 
-        const networkId = await web3.eth.net.getId();
-        const networkData = Chatyen.networks[networkId];
-        if (networkData) {
+        // const networkId = await web3.eth.net.getId();
+        // const networkData = Chatyen.networks[networkId];
+        // if (networkData) {
 
-            setContract(new web3.eth.Contract(Chatyen.abi, networkData.address));
-        }
-        console.log(networkData);
-        let contract = new web3.eth.Contract(Chatyen.abi, networkData.address)
+        //     setContract(new web3.eth.Contract(Chatyen.abi, networkData.address));
+        // }
+        // console.log(networkData);
+        // let contract = new web3.eth.Contract(Chatyen.abi, networkData.address)
         await contract.methods.buyChatbot(chatBotID).send({
             from: account, value: web3.utils.toWei("2", "ether"), gas: 3000000,
         })
@@ -139,6 +150,16 @@ export default function Album() {
         console.log(res)
     }
 
+    const safelyBuyChatbot = async (chatBotID) => {
+        try {
+            checkAccessToBot(chatBotID);
+        } catch (e) {
+            console.log(e);
+            buyChatBot(chatBotID);
+            return
+        }
+
+    }
 
     useEffect(() => {
         // const init = async () => {
@@ -206,7 +227,7 @@ export default function Album() {
                             justifyContent="center"
                         >
                             <Button variant="contained" onClick={async () => { await getAllChatBots(); }}>Fetch Data to get Started</Button>
-                            <Button variant="outlined">Secondary action</Button>
+                            <Button variant="outlined">Submit your own chatbot</Button>
                         </Stack>
                     </Container>
                 </Box>
@@ -256,6 +277,86 @@ export default function Album() {
                     </Grid>
                 </Container>
             </main>
+
+            <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <Box
+                    sx={{
+                        marginTop: 8,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                        <PageviewRounded />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Submit your own chatbot
+                    </Typography>
+                    <Box component="form" noValidate sx={{ mt: 3 }}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    autoComplete="given-name"
+                                    name="firstName"
+                                    required
+                                    fullWidth
+                                    id="firstName"
+                                    label="First Name"
+                                    autoFocus
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    id="lastName"
+                                    label="Last Name"
+                                    name="lastName"
+                                    autoComplete="family-name"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    id="email"
+                                    label="Email Address"
+                                    name="email"
+                                    autoComplete="email"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    name="password"
+                                    label="Password"
+                                    type="password"
+                                    id="password"
+                                    autoComplete="new-password"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <FormControlLabel
+                                    control={<Checkbox value="allowExtraEmails" color="primary" />}
+                                    label="I want to receive inspiration, marketing promotions and updates via email."
+                                />
+                            </Grid>
+                        </Grid>
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                        >
+                            Sign Up
+                        </Button>
+
+                    </Box>
+                </Box>
+            </Container>
             {/* Footer */}
             <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
                 <Typography variant="h6" align="center" gutterBottom>
