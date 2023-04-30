@@ -190,9 +190,9 @@ export default function Album() {
             <CssBaseline />
             <AppBar position="relative">
                 <Toolbar>
-                    <CameraIcon sx={{ mr: 2 }} />
+
                     <Typography variant="h6" color="inherit" noWrap>
-                        Album layout
+                        Chatyen
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -213,12 +213,10 @@ export default function Album() {
                             color="text.primary"
                             gutterBottom
                         >
-                            Album layout
+                            Chatyen
                         </Typography>
                         <Typography variant="h5" align="center" color="text.secondary" paragraph>
-                            Something short and leading about the collection below—its contents,
-                            the creator, etc. Make it short and sweet, but not too short so folks
-                            don&apos;t simply skip over it entirely.
+                            A Place to buy and sell all your chatbots, powered by Ethereum.
                         </Typography>
                         <Stack
                             sx={{ pt: 4 }}
@@ -267,8 +265,11 @@ export default function Album() {
                                         </Typography>
                                     </CardContent>
                                     <CardActions>
-                                        <Button size="small">Confirm Purchase</Button>
-                                        <Button size="small">Fetch Details</Button>
+                                        <Button size="small" onClick={async () => { await buyChatBot(key) }}>Confirm Purchase</Button>
+                                        <Button size="small" onClick={async () => {
+                                            await getAllChatBots();
+                                            window.location.replace(card.link)
+                                        }}>Fetch Details</Button>
                                     </CardActions>
                                 </Card>
                             </Grid>
@@ -303,7 +304,12 @@ export default function Album() {
                                     required
                                     fullWidth
                                     id="firstName"
-                                    label="First Name"
+                                    label="Project Name"
+                                    value={projectName}
+                                    onChange={(event) => {
+                                        setProjectName(event.target.value);
+                                        console.log(projectName)
+                                    }}
                                     autoFocus
                                 />
                             </Grid>
@@ -312,8 +318,13 @@ export default function Album() {
                                     required
                                     fullWidth
                                     id="lastName"
-                                    label="Last Name"
+                                    label="Selling Price"
                                     name="lastName"
+                                    value={buyPrice}
+                                    onChange={(event) => {
+                                        setBuyPrice(event.target.value);
+                                        console.log(buyPrice)
+                                    }}
                                     autoComplete="family-name"
                                 />
                             </Grid>
@@ -321,37 +332,46 @@ export default function Album() {
                                 <TextField
                                     required
                                     fullWidth
-                                    id="email"
-                                    label="Email Address"
+                                    id="text"
+                                    label="Description"
                                     name="email"
-                                    autoComplete="email"
+                                    autoComplete="text"
+                                    value={description}
+                                    onChange={(event) => {
+                                        setDesciption(event.target.value);
+                                        console.log(projectName)
+                                    }}
                                 />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
                                     required
                                     fullWidth
-                                    name="password"
-                                    label="Password"
-                                    type="password"
-                                    id="password"
-                                    autoComplete="new-password"
+                                    name="text"
+                                    label="link"
+                                    type="link"
+                                    id="link"
+                                    autoComplete="link"
+                                    value={link}
+                                    onChange={(event) => {
+                                        setLink(event.target.value);
+                                        console.log(projectName)
+                                    }}
                                 />
                             </Grid>
-                            <Grid item xs={12}>
-                                <FormControlLabel
-                                    control={<Checkbox value="allowExtraEmails" color="primary" />}
-                                    label="I want to receive inspiration, marketing promotions and updates via email."
-                                />
-                            </Grid>
+
                         </Grid>
                         <Button
                             type="submit"
                             fullWidth
+                            onClick={async (event) => {
+                                event.preventDefault()
+                                await addChatbot(projectName, description, buyPrice, 0, 0, link);
+                            }}
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Sign Up
+                            Submit
                         </Button>
 
                     </Box>

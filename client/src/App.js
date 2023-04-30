@@ -93,18 +93,7 @@ function App() {
   }, []);
   return (
     <div>
-      <button
-        onClick={async () => {
-          console.log(account);
-          // await addChatbot("lol", "lol", 2, 2, 19, "lol");
-          // await buyChatBot(0);
-          // console.log(account)
-          await checkAccessToBot(0);
-          await getAllChatBots();
 
-        }}>
-        Call My Function
-      </button>
       <Album />
       {/* <PopUpModal /> */}
     </div>

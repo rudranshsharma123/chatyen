@@ -33023,12 +33023,12 @@
     "1337": {
       "events": {},
       "links": {},
-      "address": "0x8B4344182451eC720D9e4C0765316eFb197153c1",
-      "transactionHash": "0x4e8a02f6ea476bcd17e4f09a974eb297c7424d89f084cc514c237d279499a9df"
+      "address": "0xACA596C25B2C7aF276212bEd9C8e66CDE55D3ecE",
+      "transactionHash": "0x242343a9178533b6f1a0d797c6aba58970ecf523547e484eb91e42998b23bc08"
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2023-04-30T09:32:43.518Z",
+  "updatedAt": "2023-04-30T13:38:15.190Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
