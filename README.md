@@ -1,3 +1,5 @@
+Collab link-> https://colab.research.google.com/drive/1VPtWg1SFxEJc7WqWYEN8LhRjqj1izUUS?usp=sharing
+
 ## Inspiration
 
 We were inspired to create Chatyen because we noticed that there was a lack of decentralized marketplaces for buying and selling chatbots. We wanted to create a platform that would empower individuals to monetize their own chatbots and also provide a space for users to discover and purchase chatbots for their own needs.
